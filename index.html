@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Python Data Analyst Academy — Level 2</title>
+<style>
+:root{
+--bg:#09111f;
+--panel:#101a2d;
+--panel2:#17233a;
+--border:#293955;
+--text:#f4f7fc;
+--muted:#9caac0;
+--green:#59dc91;
+--blue:#65a9ff;
+--purple:#8877ff;
+--yellow:#ffd166;
+--red:#ff7474;
+--code:#060b14;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+button,textarea{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+header{
+height:66px;
+position:sticky;
+top:0;
+z-index:10;
+background:#0c1526;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+gap:25px;
+padding:0 22px;
+}
+.logo{
+font-size:18px;
+font-weight:800;
+white-space:nowrap;
+}
+.logo span{color:var(--green)}
+.top-progress{
+flex:1;
+max-width:500px;
+margin:auto;
+}
+.progress-label{
+font-size:11px;
+color:var(--muted);
+display:flex;
+justify-content:space-between;
+margin-bottom:5px;
+}
+.progress{
+height:7px;
+background:#27344c;
+border-radius:99px;
+overflow:hidden;
+}
+.progress div{
+height:100%;
+width:0%;
+background:var(--green);
+transition:.4s;
+}
+.stats{
+display:flex;
+gap:15px;
+font-size:13px;
+white-space:nowrap;
+}
+.layout{
+display:grid;
+grid-template-columns:270px minmax(0,1fr);
+min-height:calc(100vh - 66px);
+}
+aside{
+background:#0c1526;
+border-right:1px solid var(--border);
+padding:18px 13px;
+position:sticky;
+top:66px;
+height:calc(100vh - 66px);
+overflow:auto;
+}
+.section-label{
+font-size:10px;
+letter-spacing:.12em;
+color:var(--muted);
+margin:13px 10px 7px;
+text-transform:uppercase;
+}
+.nav{
+width:100%;
+border:0;
+background:transparent;
+color:var(--muted);
+display:flex;
+align-items:center;
+gap:9px;
+padding:9px 10px;
+border-radius:8px;
+text-align:left;
+margin-bottom:3px;
+}
+.nav:hover{background:#17233a;color:var(--text)}
+.nav.active{
+background:#183627;
+color:var(--text);
+}
+.nav.done{color:#91e4af}
+.circle{
+width:25px;
+height:25px;
+border-radius:50%;
+background:#202d46;
+display:grid;
+place-items:center;
+font-size:11px;
+font-weight:700;
+flex:none;
+}
+.done .circle{
+background:var(--green);
+color:#06130b;
+}
+.nav-name{
+font-size:12px;
+font-weight:700;
+display:block;
+}
+.nav-type{
+font-size:10px;
+color:var(--muted);
+display:block;
+margin-top:2px;
+}
+main{
+max-width:1000px;
+width:100%;
+margin:auto;
+padding:35px 35px 80px;
+}
+.page{display:none}
+.page.active{display:block}
+.eyebrow{
+color:var(--green);
+font-size:11px;
+font-weight:800;
+letter-spacing:.12em;
+text-transform:uppercase;
+margin-bottom:10px;
+}
+h1{
+font-size:39px;
+line-height:1.1;
+margin:0 0 14px;
+}
+h2{
+font-size:27px;
+margin:0 0 12px;
+}
+h3{
+font-size:19px;
+margin:23px 0 10px;
+}
+p{
+color:#d0d8e7;
+line-height:1.65;
+}
+.lead{
+font-size:17px;
+color:#b7c4d8;
+max-width:780px;
+}
+.card{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:12px;
+padding:21px;
+margin:18px 0;
+}
+.code{
+background:var(--code);
+border:1px solid #202d45;
+border-radius:9px;
+padding:16px;
+overflow:auto;
+margin:12px 0;
+}
+pre{
+margin:0;
+font-family:"SFMono-Regular",Consolas,monospace;
+font-size:13px;
+line-height:1.65;
+white-space:pre-wrap;
+color:#dbe6f8;
+}
+.callout{
+border-left:3px solid var(--blue);
+background:#101d31;
+padding:13px 16px;
+margin:15px 0;
+border-radius:5px;
+}
+.callout strong{color:#dce9ff}
+.challenge{
+background:#0f1d18;
+border:1px solid #2d5943;
+border-radius:12px;
+padding:21px;
+margin-top:25px;
+}
+.challenge-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+.xp{
+font-size:11px;
+font-weight:800;
+color:var(--green);
+background:#213b2d;
+padding:5px 9px;
+border-radius:99px;
+}
+textarea{
+width:100%;
+min-height:190px;
+resize:vertical;
+background:#050a12;
+color:#e8eef8;
+border:1px solid #293955;
+border-radius:8px;
+padding:15px;
+font-family:"SFMono-Regular",Consolas,monospace;
+font-size:13px;
+line-height:1.6;
+outline:none;
+}
+textarea:focus{border-color:var(--green)}
+.actions{
+display:flex;
+gap:9px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+.btn{
+border:0;
+border-radius:8px;
+padding:10px 15px;
+font-weight:750;
+}
+.primary{
+background:var(--green);
+color:#06130b;
+}
+.secondary{
+background:#27344c;
+color:var(--text);
+}
+.secondary:hover{background:#34445f}
+.hint{
+display:none;
+background:#302b19;
+color:var(--yellow);
+padding:11px;
+border-radius:7px;
+font-size:13px;
+margin-top:10px;
+}
+.solution{
+display:none;
+margin-top:10px;
+}
+.feedback{
+display:none;
+padding:12px;
+border-radius:8px;
+margin-top:11px;
+font-size:14px;
+line-height:1.5;
+}
+.feedback.good{
+display:block;
+background:#153525;
+border:1px solid #2e704a;
+color:#a2e8ba;
+}
+.feedback.bad{
+display:block;
+background:#351b21;
+border:1px solid #6b303a;
+color:#ffb2bb;
+}
+.lesson-nav{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid var(--border);
+}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px;
+}
+th,td{
+padding:10px;
+border-bottom:1px solid var(--border);
+text-align:left;
+}
+th{color:var(--muted)}
+.metric-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+}
+.metric{
+background:var(--panel2);
+border:1px solid var(--border);
+padding:17px;
+border-radius:10px;
+}
+.metric-number{
+font-size:26px;
+font-weight:800;
+}
+.metric-label{
+font-size:11px;
+color:var(--muted);
+}
+.badge{
+display:inline-block;
+font-size:11px;
+padding:4px 7px;
+background:#202d46;
+border-radius:5px;
+color:#c0cce0;
+margin:3px 3px 3px 0;
+}
+.runner-status{
+font-size:12px;
+color:var(--muted);
+margin-top:8px;
+}
+@media(max-width:850px){
+.layout{grid-template-columns:1fr}
+aside{
+position:relative;
+top:0;
+height:auto;
+max-height:300px;
+border-right:0;
+border-bottom:1px solid var(--border);
+}
+main{padding:25px 17px 60px}
+.top-progress{display:none}
+.stats{margin-left:auto}
+h1{font-size:31px}
+.metric-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="logo">🐍 Python<span>Analyst</span> 2</div>
+<div class="top-progress">
+<div class="progress-label">
+<span>Level 2 progress</span>
+<span id="progressText">0%</span>
+</div>
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+</div>
+<div class="stats">
+<span>⭐ <strong id="xp">0</strong> XP</span>
+<span>🔥 <strong id="streak">1</strong></span>
+</div>
+</header>
+<div class="layout">
+<aside>
+<div class="section-label">Level 2</div>
+<button class="nav active" data-page="home">
+<span class="circle">▶</span>
+<span><span class="nav-name">Dashboard</span><span class="nav-type">Start here</span></span>
+</button>
+<div class="section-label">NumPy</div>
+<button class="nav" data-page="l1">
+<span class="circle">1</span>
+<span><span class="nav-name">Arrays</span><span class="nav-type">NumPy</span></span>
+</button>
+<button class="nav" data-page="l2">
+<span class="circle">2</span>
+<span><span class="nav-name">Numerical analysis</span><span class="nav-type">NumPy</span></span>
+</button>
+<div class="section-label">pandas</div>
+<button class="nav" data-page="l3">
+<span class="circle">3</span>
+<span><span class="nav-name">Loading data</span><span class="nav-type">pandas</span></span>
+</button>
+<button class="nav" data-page="l4">
+<span class="circle">4</span>
+<span><span class="nav-name">Inspecting data</span><span class="nav-type">pandas</span></span>
+</button>
+<button class="nav" data-page="l5">
+<span class="circle">5</span>
+<span><span class="nav-name">Selecting & filtering</span><span class="nav-type">pandas</span></span>
+</button>
+<button class="nav" data-page="l6">
+<span class="circle">6</span>
+<span><span class="nav-name">Sorting & ranking</span><span class="nav-type">pandas</span></span>
+</button>
+<div class="section-label">Cleaning</div>
+<button class="nav" data-page="l7">
+<span class="circle">7</span>
+<span><span class="nav-name">Missing data</span><span class="nav-type">Cleaning</span></span>
+</button>
+<button class="nav" data-page="l8">
+<span class="circle">8</span>
+<span><span class="nav-name">Text & categories</span><span class="nav-type">Cleaning</span></span>
+</button>
+<button class="nav" data-page="l9">
+<span class="circle">9</span>
+<span><span class="nav-name">Dates</span><span class="nav-type">Cleaning</span></span>
+</button>
+<div class="section-label">Analysis</div>
+<button class="nav" data-page="l10">
+<span class="circle">10</span>
+<span><span class="nav-name">Calculated metrics</span><span class="nav-type">Transformation</span></span>
+</button>
+<button class="nav" data-page="l11">
+<span class="circle">11</span>
+<span><span class="nav-name">groupby()</span><span class="nav-type">Aggregation</span></span>
+</button>
+<button class="nav" data-page="l12">
+<span class="circle">12</span>
+<span><span class="nav-name">merge()</span><span class="nav-type">Relationships</span></span>
+</button>
+<button class="nav" data-page="l13">
+<span class="circle">13</span>
+<span><span class="nav-name">Pivot tables</span><span class="nav-type">Analysis</span></span>
+</button>
+<div class="section-label">Visualisation</div>
+<button class="nav" data-page="l14">
+<span class="circle">14</span>
+<span><span class="nav-name">Matplotlib</span><span class="nav-type">Charts</span></span>
+</button>
+<button class="nav" data-page="l15">
+<span class="circle">15</span>
+<span><span class="nav-name">Exploratory analysis</span><span class="nav-type">EDA</span></span>
+</button>
+<div class="section-label">Capstone</div>
+<button class="nav" data-page="project">
+<span class="circle">★</span>
+<span><span class="nav-name">Customer analysis</span><span class="nav-type">Final project</span></span>
+</button>
+<button class="nav" data-page="reference">
+<span class="circle">?</span>
+<span><span class="nav-name">Analyst reference</span><span class="nav-type">Cheat sheet</span></span>
+</button>
+</aside>
+<main>
+<!-- HOME -->
+<section class="page active" id="home">
+<div class="eyebrow">Python for Data Analysts · Level 2</div>
+<h1>Now we analyse real data.</h1>
+<p class="lead">
+You've finished the Python foundations. This course changes the question from
+"Do I know Python?" to <strong>"Can I use Python to answer a question with data?"</strong>
+</p>
+<div class="metric-grid">
+<div class="metric">
+<div class="metric-label">XP</div>
+<div class="metric-number" id="homeXP">0</div>
+</div>
+<div class="metric">
+<div class="metric-label">Lessons</div>
+<div class="metric-number" id="homeLessons">0 / 16</div>
+</div>
+<div class="metric">
+<div class="metric-label">Level</div>
+<div class="metric-number" id="homeLevel">1</div>
+</div>
+</div>
+<div class="card">
+<h3>What you're going to learn</h3>
+<p>
+By the end, you should be able to take a CSV containing thousands of rows,
+inspect it, clean it, transform it, answer questions about it and communicate
+the results.
+</p>
+<div class="code"><pre>CSV / Excel data
+       ↓
+     pandas
+       ↓
+Inspect
+       ↓
+Clean
+       ↓
+Transform
+       ↓
+Group / compare
+       ↓
+Visualise
+       ↓
+Find insights
+       ↓
+Explain the business impact</pre></div>
+</div>
+<div class="callout">
+<strong>Important:</strong> From this point onward, don't aim to memorise every command.
+Aim to understand what the data is doing and why your code produces the result.
+</div>
+
+Start Level 2 →
+
+</section>
+<!-- L1 -->
+<section class="page" id="l1">
+<div class="eyebrow">NumPy · Lesson 1</div>
+<h1>Arrays</h1>
+<p class="lead">
+NumPy is one of the foundations underneath Python's data-analysis ecosystem.
+</p>
+<div class="card">
+<h3>Lists versus arrays</h3>
+<p>
+You've already used Python lists:
+</p>
+<div class="code"><pre>sales = [100, 200, 300, 400]</pre></div>
+<p>
+NumPy gives us arrays designed for numerical work:
+</p>
+<div class="code"><pre>import numpy as np
+
+sales = np.array([100, 200, 300, 400])
+
+<p>
+You can perform operations across the entire array:
+</p>
+<div class="code"><pre>sales * 2</pre></div>
+<p>
+The result is:
+</p>
+<div class="code"><pre>[200 400 600 800]</pre></div>
+</div>
+<div class="card">
+<h3>Useful operations</h3>
+<div class="code"><pre>sales.sum()
+sales.mean()
+sales.min()
+sales.max()
+sales.std()</pre></div>
+<p>
+These become particularly useful when analysing numerical datasets.
+</p>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+80 XP</span>
+</div>
+<p>
+Create a NumPy array containing:
+<code>10, 20, 30, 40, 50</code>
+and calculate its mean.
+</p>
+<textarea id="c1">import numpy as np
+# Create the array
+# Calculate the mean
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="check(1)">Run & Check</button>
+<button class="btn secondary" onclick="hint(1)">Hint</button>
+</div>
+<div class="hint" id="h1">
+Use np.array([...]) and then .mean().
+</div>
+<div class="feedback" id="f1"></div>
+</div>
+<div class="lesson-nav">
+<span></span>
+<button class="btn primary" onclick="complete(1,'l2')">Complete →</button>
+</div>
+</section>
+<!-- L2 -->
+<section class="page" id="l2">
+<div class="eyebrow">NumPy · Lesson 2</div>
+<h1>Thinking numerically</h1>
+<p class="lead">
+A data analyst constantly turns raw numbers into useful measurements.
+</p>
+<div class="card">
+<h3>Useful statistics</h3>
+<div class="code"><pre>values = np.array([10, 20, 30, 40, 50])
+
+values.mean()
+values.median()
+values.min()
+values.max()
+values.std()
+
+<p>
+These answer different questions.
+</p>
+<table>
+<tr><th>Function</th><th>Question</th></tr>
+<tr><td>mean()</td><td>What is the average?</td></tr>
+<tr><td>median()</td><td>What is the middle value?</td></tr>
+<tr><td>min()</td><td>What is the smallest?</td></tr>
+<tr><td>max()</td><td>What is the largest?</td></tr>
+<tr><td>std()</td><td>How spread out are the values?</td></tr>
+</table>
+</div>
+<div class="callout">
+<strong>Analyst thinking:</strong> A statistic is only useful when you know what question
+it answers.
+</div>
+<div class="card">
+<h3>Example</h3>
+<div class="code"><pre>customer_spend = np.array(
+    [12, 15, 18, 19, 21, 23, 250]
+)</pre></div>
+<p>
+The mean is pulled upward heavily by the £250 customer.
+The median gives a different picture.
+</p>
+<p>
+This is why analysts should not automatically assume that the average tells the whole story.
+</p>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l1')">← Previous</button>
+<button class="btn primary" onclick="complete(2,'l3')">Complete →</button>
+</div>
+</section>
+<!-- L3 -->
+<section class="page" id="l3">
+<div class="eyebrow">pandas · Lesson 3</div>
+<h1>Loading data</h1>
+<p class="lead">
+Most professional analysis begins with data that already exists somewhere.
+</p>
+<div class="card">
+<h3>CSV files</h3>
+<p>
+A CSV is essentially a table stored as text.
+Pandas can load it into a DataFrame:
+</p>
+<div class="code"><pre>import pandas as pd
+
+df = pd.read_csv(“sales.csv”)
+
+<p>
+Then:
+</p>
+<div class="code"><pre>df.head()</pre></div>
+<p>
+shows the first few rows.
+</p>
+</div>
+<div class="card">
+<h3>Other common sources</h3>
+<div class="code"><pre>pd.read_csv("sales.csv")
+
+pd.read_excel(“sales.xlsx”)
+
+pd.read_json(“data.json”)
+
+<p>
+In a real job, the first question is often:
+<strong>Where does the data come from?</strong>
+</p>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+100 XP</span>
+</div>
+<p>
+Which command would you normally use to load a CSV into pandas?
+</p>
+
+pd.open_csv(“sales.csv”)
+pd.read_csv(“sales.csv”)
+pd.load(“sales.csv”)
+pd.csv(“sales.csv”)
+
+<div class="feedback" id="f3"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l2')">← Previous</button>
+<button class="btn primary" onclick="complete(3,'l4')">Complete →</button>
+</div>
+</section>
+<!-- L4 -->
+<section class="page" id="l4">
+<div class="eyebrow">pandas · Lesson 4</div>
+<h1>Inspecting a dataset</h1>
+<p class="lead">
+Never start analysing a dataset blindly. First, understand what you've been given.
+</p>
+<div class="card">
+<h3>Your first five commands</h3>
+<div class="code"><pre>df.head()
+df.shape
+df.columns
+df.info()
+df.describe()</pre></div>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td>head()</td><td>See the first rows</td></tr>
+<tr><td>shape</td><td>Number of rows and columns</td></tr>
+<tr><td>columns</td><td>Column names</td></tr>
+<tr><td>info()</td><td>Data types and missing values</td></tr>
+<tr><td>describe()</td><td>Numerical summary statistics</td></tr>
+</table>
+</div>
+<div class="callout">
+<strong>Professional habit:</strong> When someone gives you a new dataset, don't immediately
+start making charts. First establish what the dataset actually contains.
+</div>
+<div class="card">
+<h3>Imagine you receive this</h3>
+<div class="code"><pre>customer_id
+age
+country
+signup_date
+orders
+total_spend
+marketing_channel</pre></div>
+<p>
+Before analysing anything, you should already be thinking:
+</p>
+<ul>
+<li>How many customers are there?</li>
+<li>Are there missing values?</li>
+<li>What types are the columns?</li>
+<li>What time period does the data cover?</li>
+<li>Are there duplicate customer IDs?</li>
+</ul>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l3')">← Previous</button>
+<button class="btn primary" onclick="complete(4,'l5')">Complete →</button>
+</div>
+</section>
+<!-- L5 -->
+<section class="page" id="l5">
+<div class="eyebrow">pandas · Lesson 5</div>
+<h1>Selecting & filtering</h1>
+<p class="lead">
+Filtering is how you turn a huge dataset into the specific rows relevant to your question.
+</p>
+<div class="card">
+<h3>Selecting columns</h3>
+<div class="code"><pre>df["revenue"]
+
+df[[“customer”, “revenue”]]
+
+<h3>Filtering</h3>
+<div class="code"><pre>df[df["revenue"] > 1000]</pre></div>
+<h3>Multiple conditions</h3>
+<div class="code"><pre>df[
+    (df["revenue"] > 1000) &
+    (df["country"] == "UK")
+]</pre></div>
+</div>
+<div class="callout">
+<strong>Important:</strong> In pandas, use <code>&</code> for AND and <code>|</code> for OR
+when combining conditions.
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+120 XP</span>
+</div>
+<p>
+Write code that filters <code>df</code> to customers whose <code>spend</code> is greater than
+500.
+</p>
+<textarea id="c5"># Filter df here
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="check(5)">Run & Check</button>
+<button class="btn secondary" onclick="hint(5)">Hint</button>
+<button class="btn secondary" onclick="solution(5)">Solution</button>
+</div>
+<div class="hint" id="h5">
+The basic pattern is df[df["column"] &gt; number].
+</div>
+<div class="solution" id="s5">
+<div class="code"><pre>df[df["spend"] > 500]</pre></div>
+</div>
+<div class="feedback" id="f5"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l4')">← Previous</button>
+<button class="btn primary" onclick="complete(5,'l6')">Complete →</button>
+</div>
+</section>
+<!-- L6 -->
+<section class="page" id="l6">
+<div class="eyebrow">pandas · Lesson 6</div>
+<h1>Sorting & ranking</h1>
+<p class="lead">
+A very common analytical question is simply: "Which ones are biggest?"
+</p>
+<div class="card">
+<div class="code"><pre>df.sort_values("revenue")</pre></div>
+<p>
+Largest first:
+</p>
+<div class="code"><pre>df.sort_values(
+    "revenue",
+    ascending=False
+)</pre></div>
+<p>
+Top 10:
+</p>
+<div class="code"><pre>df.sort_values(
+    "revenue",
+    ascending=False
+).head(10)</pre></div>
+</div>
+<div class="card">
+<h3>Turn this into an analytical question</h3>
+<p>
+Instead of thinking:
+</p>
+<div class="code"><pre>sort_values()</pre></div>
+<p>
+think:
+</p>
+<div class="code"><pre>"Show me the ten customers
+who generated the most revenue."</pre></div>
+<p>
+That mental translation is an important data-analysis skill.
+</p>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+100 XP</span>
+</div>
+<p>
+Sort <code>df</code> by <code>profit</code>, with the largest profit first.
+</p>
+<textarea id="c6"># Sort df here
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="check(6)">Run & Check</button>
+<button class="btn secondary" onclick="hint(6)">Hint</button>
+</div>
+<div class="hint" id="h6">
+Use df.sort_values("profit", ascending=False).
+</div>
+<div class="feedback" id="f6"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l5')">← Previous</button>
+<button class="btn primary" onclick="complete(6,'l7')">Complete →</button>
+</div>
+</section>
+<!-- L7 -->
+<section class="page" id="l7">
+<div class="eyebrow">Cleaning · Lesson 7</div>
+<h1>Missing data</h1>
+<p class="lead">
+Real-world data is messy. Learning how to deal with missing information is essential.
+</p>
+<div class="card">
+<div class="code"><pre>df.isna()
+
+df.isna().sum()
+
+<p>
+The second command tells you how many missing values exist in each column.
+</p>
+<h3>Removing missing rows</h3>
+<div class="code"><pre>df.dropna()</pre></div>
+<h3>Filling missing values</h3>
+<div class="code"><pre>df["age"].fillna(
+    df["age"].median()
+)</pre></div>
+</div>
+<div class="callout">
+<strong>Don't blindly delete missing data.</strong>
+Ask why the value is missing and whether removing or replacing it could change your analysis.
+</div>
+<div class="card">
+<h3>Example</h3>
+<p>
+If a company's customer dataset has missing income for 35% of customers,
+simply deleting those customers could significantly change the population you're analysing.
+</p>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l6')">← Previous</button>
+<button class="btn primary" onclick="complete(7,'l8')">Complete →</button>
+</div>
+</section>
+<!-- L8 -->
+<section class="page" id="l8">
+<div class="eyebrow">Cleaning · Lesson 8</div>
+<h1>Text & categories</h1>
+<p class="lead">
+Text data often looks simple but causes a surprising number of analytical problems.
+</p>
+<div class="card">
+<h3>Case differences</h3>
+<div class="code"><pre>"UK"
+"uk"
+"Uk"
+"UK "</pre></div>
+<p>
+A computer may treat these as different values.
+</p>
+<div class="code"><pre>df["country"] = (
+    df["country"]
+    .str.strip()
+    .str.upper()
+)</pre></div>
+<p>
+Now values such as <code>"uk "</code> become <code>"UK"</code>.
+</p>
+<h3>Replacing values</h3>
+<div class="code"><pre>df["channel"] = df["channel"].replace(
+    "FB",
+    "Facebook"
+)</pre></div>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+130 XP</span>
+</div>
+<p>
+You want to remove spaces from the beginning/end of every value in the
+<code>country</code> column.
+What would you use?
+</p>
+
+df[“country”].clean()
+df[“country”].str.strip()
+df[“country”].trim()
+df[“country”].remove_spaces()
+
+<div class="feedback" id="f8"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l7')">← Previous</button>
+<button class="btn primary" onclick="complete(8,'l9')">Complete →</button>
+</div>
+</section>
+<!-- L9 -->
+<section class="page" id="l9">
+<div class="eyebrow">Cleaning · Lesson 9</div>
+<h1>Dates</h1>
+<p class="lead">
+Dates unlock time-based analysis.
+</p>
+<div class="card">
+<h3>Convert text to dates</h3>
+<div class="code"><pre>df["signup_date"] = pd.to_datetime(
+    df["signup_date"]
+)</pre></div>
+<p>
+Once pandas understands the column as dates, you can extract useful information.
+</p>
+<div class="code"><pre>df["year"] = df["signup_date"].dt.year
+df["month"] = df["signup_date"].dt.month
+df["day"] = df["signup_date"].dt.day
+df["weekday"] = df["signup_date"].dt.day_name()</pre></div>
+</div>
+<div class="card">
+<h3>Why dates matter</h3>
+<p>
+You can now ask questions such as:
+</p>
+<ul>
+<li>Which month had the most sales?</li>
+<li>Are customers acquired in certain months more valuable?</li>
+<li>How has revenue changed over time?</li>
+<li>How long after signing up do customers make their first purchase?</li>
+</ul>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l8')">← Previous</button>
+<button class="btn primary" onclick="complete(9,'l10')">Complete →</button>
+</div>
+</section>
+<!-- L10 -->
+<section class="page" id="l10">
+<div class="eyebrow">Transformation · Lesson 10</div>
+<h1>Calculated metrics</h1>
+<p class="lead">
+Raw columns are rarely enough. Analysts create metrics that answer business questions.
+</p>
+<div class="card">
+<h3>Revenue</h3>
+<div class="code"><pre>df["revenue"] = (
+    df["units"] * df["price"]
+)</pre></div>
+<h3>Profit</h3>
+<div class="code"><pre>df["profit"] = (
+    df["revenue"] - df["costs"]
+)</pre></div>
+<h3>Profit margin</h3>
+<div class="code"><pre>df["margin"] = (
+    df["profit"] /
+    df["revenue"]
+) * 100</pre></div>
+</div>
+<div class="callout">
+<strong>Key idea:</strong> A good metric connects the raw data to a meaningful business question.
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+140 XP</span>
+</div>
+<p>
+Create a <code>profit_margin</code> column using:
+<strong>profit ÷ revenue × 100</strong>.
+</p>
+<textarea id="c10"># Create profit_margin
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="check(10)">Run & Check</button>
+<button class="btn secondary" onclick="hint(10)">Hint</button>
+</div>
+<div class="hint" id="h10">
+df["profit_margin"] = (df["profit"] / df["revenue"]) * 100
+</div>
+<div class="feedback" id="f10"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l9')">← Previous</button>
+<button class="btn primary" onclick="complete(10,'l11')">Complete →</button>
+</div>
+</section>
+<!-- L11 -->
+<section class="page" id="l11">
+<div class="eyebrow">Analysis · Lesson 11</div>
+<h1>groupby()</h1>
+<p class="lead">
+This is one of the most important concepts in pandas.
+</p>
+<div class="card">
+<h3>The business question</h3>
+<p>
+Imagine your manager asks:
+</p>
+<blockquote>
+"How much revenue did each product generate?"
+</blockquote>
+<p>
+You translate that into:
+</p>
+<div class="code"><pre>df.groupby("product")["revenue"].sum()</pre></div>
+<p>
+Or:
+</p>
+<div class="code"><pre>df.groupby("product")["revenue"].mean()</pre></div>
+<p>
+Or:
+</p>
+<div class="code"><pre>df.groupby("product")["revenue"].count()</pre></div>
+</div>
+<div class="card">
+<h3>Multiple metrics</h3>
+<div class="code"><pre>df.groupby("product").agg({
+    "revenue": "sum",
+    "units": "sum",
+    "profit": "mean"
+})</pre></div>
+<p>
+Now you can compare several metrics for each product.
+</p>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Challenge</h3>
+<span class="xp">+170 XP</span>
+</div>
+<p>
+Calculate total revenue for every <code>category</code>.
+</p>
+<textarea id="c11"># Group by category
+# Calculate total revenue
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="check(11)">Run & Check</button>
+<button class="btn secondary" onclick="hint(11)">Hint</button>
+<button class="btn secondary" onclick="solution(11)">Solution</button>
+</div>
+<div class="hint" id="h11">
+df.groupby("category")["revenue"].sum()
+</div>
+<div class="solution" id="s11">
+<div class="code"><pre>df.groupby("category")["revenue"].sum()</pre></div>
+</div>
+<div class="feedback" id="f11"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l10')">← Previous</button>
+<button class="btn primary" onclick="complete(11,'l12')">Complete →</button>
+</div>
+</section>
+<!-- L12 -->
+<section class="page" id="l12">
+<div class="eyebrow">Analysis · Lesson 12</div>
+<h1>merge()</h1>
+<p class="lead">
+In real companies, information usually lives across multiple tables.
+</p>
+<div class="card">
+<h3>Example</h3>
+<div class="code"><pre>customers
+
+customer_id | name
+1           | Sarah
+2           | Tom
+3           | Emma
+
+<div class="code"><pre>orders
+
+customer_id | revenue
+1           | 500
+2           | 700
+1           | 250
+
+<p>
+Both tables share <code>customer_id</code>.
+That allows us to combine them.
+</p>
+<div class="code"><pre>combined = customers.merge(
+    orders,
+    on="customer_id"
+)</pre></div>
+</div>
+<div class="card">
+<h3>Why this is important</h3>
+<p>
+A company's customer information might be in one database while transactions
+are in another. Marketing information may live somewhere else again.
+</p>
+<p>
+Joining datasets is therefore a core analyst skill.
+</p>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Quick quiz</h3>
+<span class="xp">+120 XP</span>
+</div>
+<p>
+What does <code>on="customer_id"</code> tell pandas?
+</p>
+
+Sort the data by customer ID
+Use customer_id as the matching column
+Delete customer IDs
+Rename the column
+
+<div class="feedback" id="f12"></div>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l11')">← Previous</button>
+<button class="btn primary" onclick="complete(12,'l13')">Complete →</button>
+</div>
+</section>
+<!-- L13 -->
+<section class="page" id="l13">
+<div class="eyebrow">Analysis · Lesson 13</div>
+<h1>Pivot tables</h1>
+<p class="lead">
+Pivot tables let you summarise two dimensions of a dataset at once.
+</p>
+<div class="card">
+<p>
+Suppose you want revenue by product AND month.
+</p>
+<div class="code"><pre>pd.pivot_table(
+    df,
+    values="revenue",
+    index="product",
+    columns="month",
+    aggfunc="sum"
+)</pre></div>
+<p>
+Conceptually, you're asking:
+</p>
+<div class="code"><pre>             Jan    Feb    Mar
+Laptop       500    650    720
+Phone        400    550    610
+Tablet       250    310    390</pre></div>
+<p>
+This makes it much easier to compare patterns across two dimensions.
+</p>
+</div>
+<div class="card">
+<h3>Questions pivot tables can help answer</h3>
+<ul>
+<li>Which products perform best in each region?</li>
+<li>Which marketing channel performs best each month?</li>
+<li>Which department has the highest costs each quarter?</li>
+<li>How does customer retention vary by cohort?</li>
+</ul>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l12')">← Previous</button>
+<button class="btn primary" onclick="complete(13,'l14')">Complete →</button>
+</div>
+</section>
+<!-- L14 -->
+<section class="page" id="l14">
+<div class="eyebrow">Visualisation · Lesson 14</div>
+<h1>Matplotlib</h1>
+<p class="lead">
+Now we turn analytical results into visual explanations.
+</p>
+<div class="card">
+<h3>Line chart</h3>
+<div class="code"><pre>import matplotlib.pyplot as plt
+
+plt.plot(
+df[“month”],
+df[“revenue”]
+)
+
+plt.title(“Revenue over time”)
+plt.xlabel(“Month”)
+plt.ylabel(“Revenue”)
+
+plt.show()
+
+<h3>Bar chart</h3>
+<div class="code"><pre>plt.bar(
+    df["product"],
+    df["revenue"]
+)
+
+plt.show()
+
+<h3>Scatter plot</h3>
+<div class="code"><pre>plt.scatter(
+    df["advertising"],
+    df["sales"]
+)
+
+plt.xlabel(“Advertising”)
+plt.ylabel(“Sales”)
+
+plt.show()
+
+</div>
+<div class="callout">
+<strong>Don't make a chart because you can.</strong>
+Make it because it helps answer a question or communicate a finding.
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l13')">← Previous</button>
+<button class="btn primary" onclick="complete(14,'l15')">Complete →</button>
+</div>
+</section>
+<!-- L15 -->
+<section class="page" id="l15">
+<div class="eyebrow">Exploratory Data Analysis · Lesson 15</div>
+<h1>EDA: thinking like an analyst</h1>
+<p class="lead">
+Exploratory Data Analysis is where you investigate a dataset before making conclusions.
+</p>
+<div class="card">
+<h3>A practical EDA workflow</h3>
+<div class="code"><pre>1. Understand the question
+        ↓
+2. Load the data
+        ↓
+3. Inspect the structure
+        ↓
+4. Check missing values
+        ↓
+5. Check duplicates
+        ↓
+6. Understand distributions
+        ↓
+7. Explore relationships
+        ↓
+8. Group and compare
+        ↓
+9. Visualise
+        ↓
+10. Form hypotheses</pre></div>
+</div>
+<div class="card">
+<h3>Questions to ask</h3>
+<ul>
+<li>What does each row represent?</li>
+<li>What is the unit of measurement?</li>
+<li>Are there suspicious values?</li>
+<li>Are there outliers?</li>
+<li>Which categories are largest?</li>
+<li>How does the data change over time?</li>
+<li>Are two variables related?</li>
+<li>Could there be another explanation?</li>
+</ul>
+</div>
+<div class="callout">
+<strong>Very important:</strong> Finding a correlation is not the same as proving that one variable causes another.
+</div>
+<div class="card">
+<h3>The difference between coding and analysis</h3>
+<p>
+A programmer might ask:
+</p>
+<div class="code"><pre>"How do I calculate the mean?"</pre></div>
+<p>
+An analyst asks:
+</p>
+<div class="code"><pre>"Is the mean actually a useful measure
+for this particular dataset?"</pre></div>
+<p>
+You're now learning the second skill.
+</p>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l14')">← Previous</button>
+<button class="btn primary" onclick="complete(15,'project')">Start capstone →</button>
+</div>
+</section>
+<!-- PROJECT -->
+<section class="page" id="project">
+<div class="eyebrow">Capstone Project</div>
+<h1>Customer behaviour analysis</h1>
+<p class="lead">
+This is deliberately less guided. Your job is to think through the analysis.
+</p>
+<div class="card">
+<h3>Scenario</h3>
+<p>
+You are a junior data analyst at an online retailer.
+Your manager wants to understand customer behaviour.
+</p>
+<p>
+You have been given a dataset containing:
+</p>
+<div class="code"><pre>customer_id
+age
+country
+signup_date
+orders
+total_spend
+marketing_channel</pre></div>
+<p>
+Your job is to investigate the dataset and produce useful findings.
+</p>
+</div>
+<div class="card">
+<h3>Questions to investigate</h3>
+<ol>
+<li>How many customers are there?</li>
+<li>What is the average customer spend?</li>
+<li>Which country has the highest total spend?</li>
+<li>Which marketing channel has the most customers?</li>
+<li>Which marketing channel generates the highest average spend?</li>
+<li>Is there a relationship between number of orders and total spend?</li>
+<li>How does customer acquisition change over time?</li>
+<li>Identify one additional insight of your own.</li>
+</ol>
+</div>
+<div class="card">
+<h3>Practice dataset</h3>
+<table>
+<tr>
+<th>ID</th>
+<th>Age</th>
+<th>Country</th>
+<th>Orders</th>
+<th>Spend</th>
+<th>Channel</th>
+</tr>
+<tr><td>1</td><td>24</td><td>UK</td><td>3</td><td>180</td><td>Google</td></tr>
+<tr><td>2</td><td>31</td><td>UK</td><td>7</td><td>620</td><td>Facebook</td></tr>
+<tr><td>3</td><td>42</td><td>USA</td><td>4</td><td>410</td><td>Google</td></tr>
+<tr><td>4</td><td>28</td><td>UK</td><td>2</td><td>140</td><td>Instagram</td></tr>
+<tr><td>5</td><td>35</td><td>USA</td><td>9</td><td>890</td><td>Facebook</td></tr>
+<tr><td>6</td><td>51</td><td>UK</td><td>6</td><td>730</td><td>Google</td></tr>
+<tr><td>7</td><td>26</td><td>Canada</td><td>3</td><td>260</td><td>Instagram</td></tr>
+<tr><td>8</td><td>39</td><td>USA</td><td>8</td><td>810</td><td>Facebook</td></tr>
+<tr><td>9</td><td>45</td><td>UK</td><td>10</td><td>1120</td><td>Google</td></tr>
+<tr><td>10</td><td>29</td><td>Canada</td><td>4</td><td>390</td><td>Instagram</td></tr>
+</table>
+</div>
+<div class="challenge">
+<div class="challenge-head">
+<h3>Your analysis</h3>
+<span class="xp">+500 XP</span>
+</div>
+<p>
+Write Python/pandas code to answer as many of the questions as possible.
+Don't look at the solution immediately.
+</p>
+<textarea id="projectCode">import pandas as pd
+data = {
+    "customer_id": [1,2,3,4,5,6,7,8,9,10],
+    "age": [24,31,42,28,35,51,26,39,45,29],
+    "country": [
+        "UK","UK","USA","UK","USA",
+        "UK","Canada","USA","UK","Canada"
+    ],
+    "orders": [3,7,4,2,9,6,3,8,10,4],
+    "total_spend": [180,620,410,140,890,730,260,810,1120,390],
+    "marketing_channel": [
+        "Google","Facebook","Google","Instagram","Facebook",
+        "Google","Instagram","Facebook","Google","Instagram"
+    ]
+}
+df = pd.DataFrame(data)
+# Start your analysis below.
+</textarea>
+<div class="actions">
+<button class="btn primary" onclick="checkProject()">Check analysis</button>
+<button class="btn secondary" onclick="projectHint()">Hints</button>
+<button class="btn secondary" onclick="projectSolution()">Example solution</button>
+</div>
+<div class="hint" id="projectHintBox">
+Try these one at a time:<br><br>
+1. df.shape<br>
+2. df["total_spend"].mean()<br>
+3. df.groupby("country")["total_spend"].sum()<br>
+4. df["marketing_channel"].value_counts()<br>
+5. df.groupby("marketing_channel")["total_spend"].mean()<br>
+6. df[["orders","total_spend"]].corr()
+</div>
+<div class="solution" id="projectSolutionBox">
+<div class="code"><pre># 1. Number of customers
+print(df.shape[0])
+
+2. Average spend
+
+print(df[“total_spend”].mean())
+
+3. Spend by country
+
+print(
+df.groupby(“country”)[“total_spend”]
+.sum()
+.sort_values(ascending=False)
+)
+
+4. Number of customers by channel
+
+print(df[“marketing_channel”].value_counts())
+
+5. Average spend by channel
+
+print(
+df.groupby(“marketing_channel”)[“total_spend”]
+.mean()
+.sort_values(ascending=False)
+)
+
+6. Relationship between orders and spend
+
+print(
+df[[“orders”,“total_spend”]].corr()
+)
+
+</div>
+<div class="feedback" id="projectFeedback"></div>
+</div>
+<div class="card">
+<h3>What makes a good answer?</h3>
+<p>
+Don't just say:
+</p>
+<div class="code"><pre>"Google has the most customers."</pre></div>
+<p>
+Try to communicate the actual finding:
+</p>
+<div class="code"><pre>"Google is the largest acquisition channel in this sample,
+accounting for 4 of the 10 customers."</pre></div>
+<p>
+Then ask:
+<strong>Does this tell the business something useful?</strong>
+</p>
+</div>
+<div class="lesson-nav">
+<button class="btn secondary" onclick="go('l15')">← Previous</button>
+<button class="btn primary" onclick="finish()">Finish Level 2 →</button>
+</div>
+</section>
+<!-- REFERENCE -->
+<section class="page" id="reference">
+<div class="eyebrow">Reference</div>
+<h1>Data Analyst reference</h1>
+<div class="card">
+<h3>Inspect</h3>
+<div class="code"><pre>df.head()
+df.tail()
+df.shape
+df.columns
+df.info()
+df.describe()
+df.isna().sum()</pre></div>
+</div>
+<div class="card">
+<h3>Select</h3>
+<div class="code"><pre>df["revenue"]
+
+df[[“product”,“revenue”]]
+
+df[df[“revenue”] > 1000]
+
+df[
+(df[“revenue”] > 1000) &
+(df[“country”] == “UK”)
+]
+
+</div>
+<div class="card">
+<h3>Transform</h3>
+<div class="code"><pre>df["profit"] = df["revenue"] - df["costs"]
+
+df[“margin”] = (
+df[“profit”] / df[“revenue”]
+) * 100
+
+</div>
+<div class="card">
+<h3>Aggregate</h3>
+<div class="code"><pre>df.groupby("product")["revenue"].sum()
+
+df.groupby(“product”)[“revenue”].mean()
+
+df.groupby(“product”).agg({
+“revenue”:“sum”,
+“profit”:“mean”
+})
+
+</div>
+<div class="card">
+<h3>Combine</h3>
+<div class="code"><pre>df1.merge(
+    df2,
+    on="customer_id"
+)</pre></div>
+</div>
+<div class="card">
+<h3>Dates</h3>
+<div class="code"><pre>df["date"] = pd.to_datetime(df["date"])
+
+df[“year”] = df[“date”].dt.year
+
+df[“month”] = df[“date”].dt.month
+
+df[“weekday”] = df[“date”].dt.day_name()
+
+</div>
+<div class="card">
+<h3>Visualise</h3>
+<div class="code"><pre>import matplotlib.pyplot as plt
+
+plt.plot(x, y)
+
+plt.bar(x, y)
+
+plt.scatter(x, y)
+
+plt.title(“Title”)
+plt.xlabel(“X”)
+plt.ylabel(“Y”)
+
+plt.show()
+
+</div>
+<div class="card">
+<h3>The analyst thought process</h3>
+<div class="code"><pre>What question am I answering?
+            ↓
+What data do I need?
+            ↓
+Is the data trustworthy?
+            ↓
+How should I clean it?
+            ↓
+What calculation answers the question?
+            ↓
+What does the result actually mean?
+            ↓
+How can I communicate it?</pre></div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script>
+const TOTAL = 16;
+let state = {
+xp:0,
+completed:[],
+streak:1
+};
+try{
+const saved=localStorage.getItem("analystLevel2");
+if(saved){
+state=Object.assign(state,JSON.parse(saved));
+}
+}catch(e){}
+function save(){
+try{
+localStorage.setItem(
+"analystLevel2",
+JSON.stringify(state)
+);
+}catch(e){}
+update();
+}
+function update(){
+document.getElementById("xp").textContent=state.xp;
+document.getElementById("homeXP").textContent=state.xp;
+document.getElementById("streak").textContent=state.streak;
+document.getElementById("homeLessons").textContent=
+state.completed.length+" / "+TOTAL;
+const pct=Math.round(
+(state.completed.length/TOTAL)*100
+);
+document.getElementById("progressText").textContent=pct+"%";
+document.getElementById("progressBar").style.width=pct+"%";
+document.getElementById("homeLevel").textContent=
+Math.floor(state.xp/500)+1;
+document.querySelectorAll(".nav").forEach(btn=>{
+const page=btn.dataset.page;
+const match=page.match(/^l(\d+)$/);
+if(match){
+const n=Number(match[1]);
+if(state.completed.includes(n)){
+btn.classList.add("done");
+btn.querySelector(".circle").textContent="✓";
+}
+}
+});
+}
+function go(page){
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+const target=document.getElementById(page);
+if(target)target.classList.add("active");
+document.querySelectorAll(".nav")
+.forEach(n=>{
+n.classList.toggle(
+"active",
+n.dataset.page===page
+);
+});
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+document.querySelectorAll(".nav").forEach(btn=>{
+btn.addEventListener("click",()=>{
+go(btn.dataset.page);
+});
+});
+function complete(n,next){
+if(!state.completed.includes(n)){
+state.completed.push(n);
+state.xp+=70+(n*8);
+save();
+}
+go(next);
+}
+function hint(n){
+const el=document.getElementById("h"+n);
+if(el){
+el.style.display=
+el.style.display==="block"
+?"none":"block";
+}
+}
+function solution(n){
+const el=document.getElementById("s"+n);
+if(el){
+el.style.display=
+el.style.display==="block"
+?"none":"block";
+}
+}
+function clean(s){
+return s
+.toLowerCase()
+.replace(/\s+/g," ")
+.replace(/'/g,'"')
+.trim();
+}
+function showFeedback(id,good,message){
+const el=document.getElementById(id);
+el.className="feedback "+(good?"good":"bad");
+el.textContent=message;
+}
+function check(n){
+const code=document.getElementById("c"+n).value;
+const c=clean(code);
+let good=false;
+if(n===1){
+good=
+c.includes("np.array") &&
+c.includes("10") &&
+c.includes("20") &&
+c.includes("30") &&
+c.includes("40") &&
+c.includes("50") &&
+c.includes("mean");
+}
+if(n===5){
+good=
+c.includes('df[df["spend"] > 500]') ||
+c.includes('df[df["spend"]>500]');
+}
+if(n===6){
+good=
+c.includes("sort_values") &&
+c.includes("profit") &&
+c.includes("ascending=false");
+}
+if(n===10){
+good=
+c.includes("profit_margin") &&
+c.includes("profit") &&
+c.includes("revenue") &&
+c.includes("100");
+}
+if(n===11){
+good=
+c.includes("groupby") &&
+c.includes("category") &&
+c.includes("revenue") &&
+c.includes("sum");
+}
+if(good){
+showFeedback(
+"f"+n,
+true,
+"✓ Correct! You've demonstrated the concept. Keep going."
+);
+if(!state.completed.includes(n)){
+state.xp+=90;
+save();
+}
+}else{
+showFeedback(
+"f"+n,
+false,
+"Not quite. Try the hint and think about the structure of the operation rather than guessing."
+);
+}
+}
+function answer(n,button,correct){
+const feedback=document.getElementById("f"+n);
+if(correct){
+button.style.background="#153525";
+button.style.borderColor="var(--green)";
+showFeedback(
+"f"+n,
+true,
+"✓ Correct! +30 XP"
+);
+state.xp+=30;
+save();
+}else{
+button.style.background="#351b21";
+button.style.borderColor="var(--red)";
+showFeedback(
+"f"+n,
+false,
+"Not quite. Try again."
+);
+}
+}
+function checkProject(){
+const code=clean(
+document.getElementById("projectCode").value
+);
+let score=0;
+if(code.includes("shape"))score++;
+if(code.includes("mean"))score++;
+if(code.includes("groupby") && code.includes("country"))score++;
+if(code.includes("value_counts"))score++;
+if(code.includes("marketing_channel") && code.includes("mean"))score++;
+if(code.includes("corr"))score++;
+const feedback=
+document.getElementById("projectFeedback");
+if(score>=4){
+feedback.className="feedback good";
+feedback.textContent=
+"✓ Strong analysis. You've covered "+score+
+" of the key analytical techniques. Now focus on explaining what the results mean.";
+if(!state.completed.includes(16)){
+state.completed.push(16);
+state.xp+=500;
+save();
+}
+}else{
+feedback.className="feedback bad";
+feedback.textContent=
+"You've covered "+score+
+" of the key techniques. Try to answer more of the manager's questions.";
+}
+}
+function projectHint(){
+const el=document.getElementById("projectHintBox");
+el.style.display=
+el.style.display==="block"
+?"none":"block";
+}
+function projectSolution(){
+const el=document.getElementById("projectSolutionBox");
+el.style.display=
+el.style.display==="block"
+?"none":"block";
+}
+function finish(){
+if(!state.completed.includes(16)){
+state.completed.push(16);
+state.xp+=500;
+save();
+}
+go("reference");
+}
+update();
+</script>
+</body>
+</html>
